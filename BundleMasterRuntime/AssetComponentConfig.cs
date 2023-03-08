@@ -48,7 +48,11 @@ namespace BM
             get
             {
                 InitRuntimeConfig();
+#if UNITY_EDITOR
                 return _bmRuntimeConfig.AssetLoadMode;
+#else
+                return AssetLoadMode.Build;
+#endif
             }
         }
 

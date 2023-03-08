@@ -54,6 +54,7 @@ namespace BM
             FileSystemInfo[] fileSystemInfos = buildBundlePath.GetFileSystemInfos();
             foreach (FileSystemInfo fileSystemInfo in fileSystemInfos)
             {
+                if(fileSystemInfo.Name.StartsWith(".")) continue;
                 if (fileSystemInfo is DirectoryInfo)
                 {
                     dirs.Add(fileSystemInfo.FullName);

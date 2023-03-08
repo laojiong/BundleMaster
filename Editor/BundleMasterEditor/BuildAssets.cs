@@ -447,16 +447,32 @@ namespace BM
             //Copy资源
             foreach (string dir in dirs)
             {
-                Directory.CreateDirectory(dir.Replace(assetsOriginSetting.OriginFilePath, filePath));
+                if (assetsOriginSetting.UseReletivePath)
+                {
+                    Directory.CreateDirectory(Path.Combine(filePath, Path.GetRelativePath(assetsOriginSetting.OriginFilePath, dir)));
+                }
+                else
+                {
+                    Directory.CreateDirectory(dir.Replace(assetsOriginSetting.OriginFilePath, filePath));
+                }
             }
             List<string> letFilePaths = new List<string>();
             foreach (string file in files)
             {
+                string letFilePath = "";
+                if (assetsOriginSetting.UseReletivePath)
+                {
+                    letFilePath = Path.GetRelativePath(assetsOriginSetting.OriginFilePath, file);
+                }
+                else
+                {
 #if UNITY_STANDALONE_OSX 
-                string letFilePath = file.Replace(assetsOriginSetting.OriginFilePath + "/", null);
+                    letFilePath = file.Replace(assetsOriginSetting.OriginFilePath + "/", null);
 #else
-                string letFilePath = file.Replace(assetsOriginSetting.OriginFilePath + "\\", null);
+                    letFilePath = file.Replace(assetsOriginSetting.OriginFilePath + "\\", null);
 #endif
+                }
+
                 letFilePaths.Add(letFilePath);
                 File.Copy(file, Path.Combine(filePath, letFilePath), true);
             }

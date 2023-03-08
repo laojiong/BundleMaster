@@ -15,6 +15,10 @@ namespace BM
         [Header("版本索引")]
         [Tooltip("表示当前原生的索引")] public int BuildIndex;
         
+        [Header("是否使用相对路径")]
+        [Tooltip("使用相对路径，相对Unity根目录")]
+        public bool UseReletivePath = false;
+        
         [Header("资源路径")]
         [Tooltip("需要打包的资源所在的路径(不需要包含依赖, 只包括需要主动加载的资源)")]
         public string OriginFilePath = "";

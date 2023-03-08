@@ -63,6 +63,12 @@ namespace BM
             
             GUILayout.Space(_h / 15);
             
+            bool originUseReletivePath = selectAssetsOriginSetting.UseReletivePath;
+            selectAssetsOriginSetting.UseReletivePath = EditorGUILayout.Toggle("使用相对路径", selectAssetsOriginSetting.UseReletivePath);
+            if (originUseReletivePath != selectAssetsOriginSetting.UseReletivePath)
+            {
+                needFlush = true;
+            }
             GUILayout.BeginHorizontal();
             string originAssetPath = selectAssetsOriginSetting.OriginFilePath;
             originAssetPath = EditorGUILayout.TextField(originAssetPath);
@@ -70,6 +76,12 @@ namespace BM
             {
                 selectAssetsOriginSetting.OriginFilePath = originAssetPath;
                 needFlush = true;
+            }
+
+            if (needFlush)
+            {
+                EditorUtility.SetDirty(selectAssetsOriginSetting);
+                AssetDatabase.SaveAssets();
             }
             GUILayout.EndHorizontal();
             
