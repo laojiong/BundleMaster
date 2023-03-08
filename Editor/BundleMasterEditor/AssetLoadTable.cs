@@ -51,6 +51,8 @@ namespace BM
                     return Path.Combine(RelativePath, BundlePath);
                 }
                 string path = Path.Combine(Application.dataPath + "/../", BundlePath);
+                BuildTarget target = EditorUserBuildSettings.activeBuildTarget;
+                path = Path.Combine(path, target.ToString());
                 DirectoryInfo info;
                 if (!Directory.Exists(path))
                 {

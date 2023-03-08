@@ -25,9 +25,9 @@ namespace BM
             {
                 editorBuildSettingsScenes.Add(new EditorBuildSettingsScene(AssetDatabase.GetAssetPath(sceneAsset), true));
             }
-            EditorBuildSettings.scenes = editorBuildSettingsScenes.ToArray();
+            // EditorBuildSettings.scenes = editorBuildSettingsScenes.ToArray();
             //清空加密资源的文件夹
-            string encryptAssetFolderPath = Path.Combine(assetLoadTable.BuildBundlePath + "/../", assetLoadTable.EncryptPathFolder);
+            string encryptAssetFolderPath = Path.Combine(assetLoadTable.BuildBundlePath + "/../", EditorUserBuildSettings.activeBuildTarget.ToString() + assetLoadTable.EncryptPathFolder);
             if (!Directory.Exists(encryptAssetFolderPath))
             {
                 Directory.CreateDirectory(encryptAssetFolderPath);
@@ -399,7 +399,7 @@ namespace BM
             //如果此分包需要加密就生成加密的资源
             if (assetsLoadSetting.EncryptAssets)
             {
-                string encryptAssetPath = Path.Combine(assetLoadTable.BuildBundlePath + "/../", assetLoadTable.EncryptPathFolder, assetsLoadSetting.BuildName);
+                string encryptAssetPath = Path.Combine(assetLoadTable.BuildBundlePath + "/../", EditorUserBuildSettings.activeBuildTarget.ToString() + assetLoadTable.EncryptPathFolder, assetsLoadSetting.BuildName);
                 //创建加密的资源
                 BuildAssetsTools.CreateEncryptAssets(bundlePackagePath, encryptAssetPath, manifest, assetsLoadSetting.SecretKey);
                 //保存加密的版本号文件

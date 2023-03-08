@@ -50,8 +50,9 @@ namespace BM
                         }
                     }
                 }
+                EditorBuildSettings.scenes = editorBuildSettingsScenes.Values.ToArray();
             }
-            EditorBuildSettings.scenes = editorBuildSettingsScenes.Values.ToArray();
+            UnityEngine.Debug.LogWarning("CheckSceneChange");
         } 
     }
 }
